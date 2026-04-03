@@ -1,4 +1,4 @@
-package com.cssmini.spring.annotation;
+package com.spring;
 
 
 /**
@@ -6,5 +6,5 @@ package com.cssmini.spring.annotation;
  * @date 2026/4/4 01:04
  * @description
  */
-public @interface Scope {
+public class ApplicationContext {
 }

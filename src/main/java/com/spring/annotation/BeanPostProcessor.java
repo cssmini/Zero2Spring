@@ -1,4 +1,4 @@
-package com.cssmini.spring.annotation;
+package com.spring.annotation;
 
 
 /**

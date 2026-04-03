@@ -1,4 +1,4 @@
-package com.cssmini.spring.annotation;
+package com.spring.annotation;
 
 
 /**
@@ -6,5 +6,5 @@ package com.cssmini.spring.annotation;
  * @date 2026/4/4 01:02
  * @description
  */
-public @interface ComponentScan {
+public @interface Autowired {
 }

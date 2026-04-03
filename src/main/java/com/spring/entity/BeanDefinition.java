@@ -1,4 +1,4 @@
-package com.cssmini.spring.entity;
+package com.spring.entity;
 
 
 /**
