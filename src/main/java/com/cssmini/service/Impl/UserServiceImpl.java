@@ -9,10 +9,10 @@ import com.spring.annotation.Component;
  * @date 2026/4/4 01:40
  * @description
  */
-@Component
+@Component("UserService")
 public class UserServiceImpl implements UserService {
     @Override
     public void test() {
-
+        System.out.println("UserServiceImpl test");
     }
 }
