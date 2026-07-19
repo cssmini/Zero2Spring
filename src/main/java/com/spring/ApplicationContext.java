@@ -5,8 +5,10 @@ import com.spring.annotation.Autowired;
 import com.spring.annotation.Component;
 import com.spring.annotation.ComponentScan;
 import com.spring.annotation.Scope;
+import com.spring.service.BeanNameAware;
 import com.spring.service.BeanPostProcessor;
 import com.spring.entity.BeanDefinition;
+import com.spring.service.InitializingBean;
 
 import java.beans.Introspector;
 import java.io.File;
@@ -51,18 +53,41 @@ public class ApplicationContext {
 
     private Object createBean(String beanName, BeanDefinition beanDefinition) {
         Class clazz = beanDefinition.getType();
+
         Object instance = null;
         try {
+
             instance = clazz.getConstructor().newInstance();
 
             for (Field field : clazz.getDeclaredFields()) {
                 if (field.isAnnotationPresent(Autowired.class)) {
 
                     field.setAccessible(true);
-
+                    System.out.println("Autowired:"+ instance);
+                    System.out.println("Autowired:"+ field.getName());
                     field.set(instance, getBean(field.getName()));
                 }
             }
+
+            if (instance instanceof BeanNameAware) {
+                System.out.println("BeanNameAware:"+ instance);
+                System.out.println("BeanNameAware:"+ beanName);
+                ((BeanNameAware)instance).setBeanName(beanName);
+            }
+
+            for (BeanPostProcessor beanPostProcessor : beanPostProcessorList) {
+                instance = beanPostProcessor.postProcessBeforeInitialization(instance, beanName);
+            }
+
+            if (instance instanceof InitializingBean) {
+                ((InitializingBean)instance).afterPropertiesSet();
+            }
+
+            for (BeanPostProcessor beanPostProcessor : beanPostProcessorList) {
+                instance = beanPostProcessor.postProcessAfterInitialization(instance, beanName);
+            }
+
+
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
@@ -75,6 +100,7 @@ public class ApplicationContext {
 
         return instance;
     }
+
 
 
 
@@ -130,8 +156,10 @@ public class ApplicationContext {
 
                         if (clazz.isAnnotationPresent(Component.class)) {
 
-
-                            // TODO BeanPostProcessor check
+                            if (BeanPostProcessor.class.isAssignableFrom(clazz)) {
+                                BeanPostProcessor instance = (BeanPostProcessor) clazz.getConstructor().newInstance();
+                                beanPostProcessorList.add(instance);
+                            }
 
                             Component componentAnnotation = clazz.getAnnotation(Component.class);
                             String beanName = componentAnnotation.value();
@@ -156,6 +184,14 @@ public class ApplicationContext {
                         }
                     } catch (ClassNotFoundException e) {
                         e.printStackTrace();
+                    } catch (InvocationTargetException e) {
+                        throw new RuntimeException(e);
+                    } catch (InstantiationException e) {
+                        throw new RuntimeException(e);
+                    } catch (IllegalAccessException e) {
+                        throw new RuntimeException(e);
+                    } catch (NoSuchMethodException e) {
+                        throw new RuntimeException(e);
                     }
                 }
             }

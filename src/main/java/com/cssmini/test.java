@@ -14,8 +14,9 @@ public class test {
         // spring init
         ApplicationContext applicationContext = new ApplicationContext(AppConfig.class);
         // get spring bean
-        UserService userService = (UserService) applicationContext.getBean("UserService");
+        UserService userService = (UserService) applicationContext.getBean("userService");
         // userService function running
+        userService.test();
         userService.test();
     }
 }
