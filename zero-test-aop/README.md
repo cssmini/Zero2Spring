@@ -2,6 +2,8 @@
 
 > Spring AOP 切面编程测试项目 —— 演示 @Before / @After / @Around 三种通知
 
+[🇨🇳 中文](README.md) | [🇯🇵 日本語](README.ja.md)
+
 ---
 
 ## 依赖关系

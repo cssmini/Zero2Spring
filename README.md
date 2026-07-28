@@ -2,6 +2,8 @@
 
 > 从零手写迷你 Spring 框架 —— 纯 JDK 实现 IoC / DI + AOP + MVC
 
+[🇨🇳 中文](README.md) | [🇯🇵 日本語](README.ja.md)
+
 ---
 
 ## 目录

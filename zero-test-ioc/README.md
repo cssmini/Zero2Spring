@@ -2,6 +2,8 @@
 
 > Spring IoC/DI 容器测试项目 —— 演示控制反转与依赖注入
 
+[🇨🇳 中文](README.md) | [🇯🇵 日本語](README.ja.md)
+
 ---
 
 ## 依赖关系

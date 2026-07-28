@@ -2,6 +2,8 @@
 
 > Spring MVC 测试项目 —— 演示 DispatcherServlet + @Controller + JSON 响应 + 视图转发
 
+[🇨🇳 中文](README.md) | [🇯🇵 日本語](README.ja.md)
+
 ---
 
 ## 依赖关系
