@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.cssmini</groupId>
+        <artifactId>Zero2Spring</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>zero-test-mvc</artifactId>
+    <packaging>war</packaging>
+    <description>MVC 测试项目</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.cssmini</groupId>
+            <artifactId>zero-spring-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.2.3</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+            <!-- 内嵌 Jetty，修改代码自动热加载 -->
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>9.4.53.v20231009</version>
+                <configuration>
+                    <httpConnector>
+                        <port>8088</port>
+                    </httpConnector>
+                    <webApp>
+                        <contextPath>/</contextPath>
+                    </webApp>
+                    <!-- 每秒检查 class 变化，自动 reload 无需重启 -->
+                    <scanIntervalSeconds>2</scanIntervalSeconds>
+                    <reload>automatic</reload>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
